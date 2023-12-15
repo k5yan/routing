@@ -6,6 +6,7 @@ export const MakeRawTodo = (refreshList) => {
 		headers: { 'Content-type': 'application/json;charset=utf-8' },
 		body: JSON.stringify({
 			todo: 'Новая заметка',
+			complete: false,
 		}),
 	}).finally(() => {
 		refreshList();

@@ -4,12 +4,13 @@ import { TodosList } from './components/TodosList';
 import { Todo } from './components/Todo';
 
 export function App() {
-	const Element = () => <div> Работает </div>;
 	return (
 		<>
-			<div className="App">
-				<TodosList />
-			</div>
+			<div className="App" />
+			<Routes>
+				<Route path="/" element={<TodosList />} />
+				<Route path="/todo/:id" element={<Todo />} />
+			</Routes>
 		</>
 	);
 }

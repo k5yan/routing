@@ -1,16 +1,34 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, Link, Outlet } from 'react-router-dom';
-import styles from '../styles/TodoStyle.module.css';
-import { Todo } from './Todo';
-import { TodoTitle } from './TodoTitle';
-import { MakeRawTodo } from './MakeRawTodo';
+import { List } from './List';
+import { SearchBlock } from './SearchBlock';
 
 export const TodosList = () => {
-	const [todos, setTodos] = useState([]); //все заметки
+	const [todos, setTodos] = useState([]);
+
+	const [currentDB, setCurrentDB] = useState(true);
+
+	const [requiredItem, setRequiredItem] = useState(``);
+	const [requiredTodos, setRequiredTodos] = useState([]);
+
+	const requiredItemChange = ({ target }) => setRequiredItem(target.value.trim());
+	const getRequiredTodos = () => {
+		setRequiredTodos(todos.filter((todo) => todo.todo.includes(requiredItem)));
+		setCurrentDB(false);
+	};
+
 	const [refreshListFlag, setRefreshListFlag] = useState(false);
 	const refreshList = () => {
-		setRefreshListFlag(!refreshListFlag); //обновление всего списка
+		setRefreshListFlag(!refreshListFlag);
 	};
+
+	const dbSwitcher = {
+		true: todos,
+		false: requiredTodos,
+	};
+
+	useEffect(() => {
+		console.log(currentDB);
+	}, [currentDB]);
 
 	useEffect(() => {
 		fetch('http://localhost:3004/todos')
@@ -20,32 +38,22 @@ export const TodosList = () => {
 			});
 	}, [refreshListFlag]);
 
+	const SearchBlockProps = {
+		requiredItem: requiredItem,
+		requiredItemChange: requiredItemChange,
+		getRequiredTodos: getRequiredTodos,
+		setCurrentDB: setCurrentDB,
+	};
+
+	const ListProps = {
+		todos: dbSwitcher[currentDB],
+		refreshList: refreshList,
+		setCurrentDB: setCurrentDB,
+	};
 	return (
 		<>
-			<Link to="/">
-				<div className={styles.appContainer}>
-					<div className={styles.listContainer}>
-						{todos
-							.map(({ id, todo }) => (
-								// <Todo key={id} id={id} todo={todo} refreshList={refreshList} />
-								<TodoTitle id={id} todo={todo} />
-							))
-							.reverse()}
-					</div>
-					<button
-						className={styles.todoAddButton}
-						onClick={() => MakeRawTodo(refreshList)}
-					>
-						<span> + </span>
-					</button>
-				</div>
-			</Link>
-			<Routes>
-				<Route
-					path="/todo/:id"
-					element={<Todo todos={todos} refreshList={refreshList} />}
-				/>
-			</Routes>
+			<SearchBlock props={SearchBlockProps} />
+			<List props={ListProps} />
 		</>
 	);
 };

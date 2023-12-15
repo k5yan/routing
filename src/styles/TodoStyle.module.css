@@ -1,6 +1,6 @@
 .appContainer {
 	width: 100%;
-	max-width: 340px;
+	max-width: 380px;
 	height: auto;
 	display: flex;
 	position: relative;
@@ -8,7 +8,7 @@
 
 .listContainer {
 	width: 100%;
-	max-width: 400px;
+	max-width: 312px;
 	height: auto;
 	display: inline-block;
 	position: relative;
@@ -18,7 +18,7 @@
 	background-color: beige;
 	font-size: 16px;
 	width: 100%;
-	max-width: 340px;
+	max-width: 312px;
 	height: auto;
 	margin: 2px 0px 2px 0px;
 	border: 2px solid #DEB887;
@@ -122,25 +122,65 @@
 	color: green;
 }
 
-.todoAddButton {
+
+.todoSearch {
+	display: inline-block;
+	position: sticky;
+	width: 100%;
+	max-width: 312px;
+	background-color: beige;
+	border: 2px solid #DEB887;
+	border-radius: 3px;
+	margin: 2px 0 0 0;
+	font-size: 1em;
+	box-sizing: border-box;
+}
+
+.mainButtons {
 	width: 1.5em;
 	height: 1.5em;
 	background-color: beige;
 	border: 2px solid #DEB887;
 	border-radius: 3px;
-	margin: 2px 2px 2px 2px;
+	margin: 2px 0 0 2px;
 	font-size: 1em;
-	position: relative;
 	box-sizing: border-box;
 	position: sticky;
-	top: 2px;
+	display: inline-block;
 	align-content: center;
 	align-items: center;
+}
+.SearchButton {
+	top: 5px;
+	padding-left: 2px;
+}
+.HomeButton {
+	padding-left: 5px;
+}
+.AddButton {
+	top: 2px;
+}
+.ReverseListButton {
+	top: 2px;
+	padding-left: 2px;
+}
+.toListButton {
+	padding-left: 2px;
+	margin: 0;
+}
+
+
+span {
+	display: block;
 }
 
 a {
 	color: #A52A2A;
-	width: 100%;;
+	width: 100%;
 	text-decoration: inherit;
+}
+
+.searchBlock {
+	position: sticky;
 }
 
